@@ -14,7 +14,7 @@
   <body>
   <h1>Project <%= @project.id %></h1>
     <div style='display:flex;flex-direction:column;'>
-        <p>Title: <%=  @project.title  %> </p> 
+        <h4>Title: <%=  @project.title  %> </h4> 
         <p>Description: <%=  @project.description  %></p>
         <p>Status: <%=  @project.status  %></p>
         <br>
@@ -22,11 +22,13 @@
 
 
     <h2>Todos:</h2>
-    <ul>
+    <div>
     <% @todos.each do |todo| %>
-        <li><%= todo.title %></li>
+        <h4>Title: <%= todo.title %></h4>
+        <p>Description: <%= todo.description %></p>
+        <p>Status: <%= todo.status %></p>
     <% end %>
-    </ul>
+    </div>
 
   <p>
     <%= link_to 'Create New Project', new_project_path %>
