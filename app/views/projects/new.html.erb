@@ -1,0 +1,10 @@
+<h1>Create New Project</h1>
+
+<%= form_with url: projects_path, method: :post, local: true do |f| %>
+
+  <%= f.text_field :title, name: "project[title]", placeholder: "Title" %>
+  <%= f.text_area :description, name: "project[description]", placeholder: "Description" %>
+  <%= f.text_field :status, name: "project[status]", placeholder: "Status" %>
+  <%= f.submit "Add Project" %>
+
+<% end %>

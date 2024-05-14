@@ -1,0 +1,10 @@
+<h1>Create New To-Do Item</h1>
+
+<%= form_with model: @todo, url: todos_path, method: :post, local: true do |f| %>
+
+  <%= f.text_field :title, name: "todo[title]", placeholder: "Title" %>
+  <%= f.text_area :description, name: "todo[description]", placeholder: "Description" %>
+  <%= f.text_field :status, name: "todo[status]", placeholder: "Status" %>
+  <%= f.submit "Add Todo Item" %>
+
+<% end %>

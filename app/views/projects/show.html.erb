@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Todo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+
+  </head>
+
+  <body>
+  <h1>Project <%= @project.id %></h1>
+    <div style='display:flex;flex-direction:column;'>
+        <p>Title: <%=  @project.title  %> </p> 
+        <p>Description: <%=  @project.description  %></p>
+        <p>Status: <%=  @project.status  %></p>
+        <br>
+    </div>
+
+
+    <h2>Todos:</h2>
+    <ul>
+    <% @todos.each do |todo| %>
+        <li><%= todo.title %></li>
+    <% end %>
+    </ul>
+
+  <p>
+    <%= link_to 'Create New Project', new_project_path %>
+  </p>
+
+  <div id="projects-container"></div>
+
+    <%= yield %>
+  </body>
+</html>
