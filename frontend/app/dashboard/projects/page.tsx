@@ -55,16 +55,19 @@ export default function Page() {
                     <li key={project.id} className="mb-2 border-2 border-red-950 rounded-lg p-2 bg-slate-900">
                         <div className="flex justify-between">
                             <h3 className="text-lg text-red-400 font-semibold underline">{project.title}</h3>
-                            <p className="text-xs font-sans">Status: {project.status}</p>
+                            <p className="text-xs font-sans">{project.status}</p>
                         </div>
                         <p className="text-slate-400 text-md font-light">{project.description}</p>
                         {project.todos && project.todos.length > 0 && (
                             <div className="mt-4">
-                                <h4 className="text-md font-semibold">Todos:</h4>
-                                <ul className="list-disc list-inside">
+                                <h4 className="text-sm font-semibold">Todos:</h4>
+                                <ul className="">
                                     {project.todos.map((todo: Todo) => (
                                         <li key={todo.id}>
-                                            <p className="text-slate-400">{todo.title} - {todo.status}</p>
+                                            <div className="flex space-x-1 ml-4">
+                                                <p className="text-slate-400">{todo.title}</p>
+                                                <p className="text-slate-400 text-xs">({todo.status})</p>
+                                            </div>
                                             <p className="text-slate-300 text-sm">{todo.description}</p>
                                         </li>
                                     ))}

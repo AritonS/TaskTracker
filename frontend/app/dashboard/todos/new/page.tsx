@@ -34,6 +34,10 @@ export default function NewTodoForm() {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        const todoToCreate = {
+            ...todo,
+            project_id: todo.project_id ? parseInt(todo.project_id, 10) : null
+        };
         await fetch('http://localhost:4000/todos', createTodo)
         router.push('/dashboard/todos')
     }
