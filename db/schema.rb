@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_15_160137) do
     t.string "session_token", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["session_token"], name: "index_users_on_session_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
