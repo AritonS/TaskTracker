@@ -6,6 +6,9 @@ class User < ApplicationRecord
     validates :password_digest, presence: { message: "Password can't be blank" }
     validates :password, length: { minimum: 6, allow_nil: true }
 
+    has_many :projects
+    has_many :todos
+
     after_initialize :ensure_session_token
     
     def password=(password)

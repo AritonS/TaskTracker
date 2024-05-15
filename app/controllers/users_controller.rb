@@ -3,13 +3,13 @@ class UsersController < ApplicationController
     before_action :require_current_user!, except: [:create, :new]
 
     def create
-        @user = User.new(params[:user])
+        @user = User.new(user_params)
 
         if @user.save
-        login!(@user)
-        redirect_to user_url(@user)
+            login!(@user)
+            redirect_to user_url(@user)
         else
-        render json: @user.errors.full_messages
+            render json: @user.errors.full_messages
         end
     end
 
@@ -20,7 +20,6 @@ class UsersController < ApplicationController
     def show
         @user = User.find(params[:id])
     end
-
 
     private
 
