@@ -10,3 +10,4 @@
 
 Project.find_or_create_by!(title: 'Create App', description: 'Create an app where users can keep track of tasks', status: 'In Progress')
 Todo.find_or_create_by!(title: 'Add Models', description: 'Create models for projects and todos, with todos optionally associated with projects', status: 'In Progress', project_id: '1')
+User.find_or_create_by!(username: 'TestUser', password: 'TestPassword')

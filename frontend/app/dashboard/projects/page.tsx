@@ -54,18 +54,18 @@ export default function Page() {
                 {projects.map((project: Project) => (
                     <li key={project.id} className="mb-2 border-2 border-red-950 rounded-lg p-2 bg-slate-900">
                         <div className="flex justify-between">
-                            <h3 className="text-lg text-red-400 font-semibold underline">{project.title}</h3>
+                            <h3 className="text-xl text-red-400 font-semibold underline">{project.title}</h3>
                             <p className="text-xs font-sans">{project.status}</p>
                         </div>
-                        <p className="text-slate-400 text-md font-light">{project.description}</p>
+                        <p className="text-slate-300 text-md font-light">{project.description}</p>
                         {project.todos && project.todos.length > 0 && (
-                            <div className="mt-4">
-                                <h4 className="text-sm font-semibold">Todos:</h4>
+                            <div className="mt-4 border-2 border-slate-800 p-1 rounded-md">
+                                <h4 className="text-sm text-center font-semibold">To-Dos</h4>
                                 <ul className="">
                                     {project.todos.map((todo: Todo) => (
                                         <li key={todo.id}>
-                                            <div className="flex space-x-1 ml-4">
-                                                <p className="text-slate-400">{todo.title}</p>
+                                            <div className="flex space-x-1 ml-4 mt-1">
+                                                <p className="text-red-400 text-sm">- {todo.title}</p>
                                                 <p className="text-slate-400 text-xs">({todo.status})</p>
                                             </div>
                                             <p className="text-slate-300 text-sm">{todo.description}</p>
