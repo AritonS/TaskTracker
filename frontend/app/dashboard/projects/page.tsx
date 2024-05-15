@@ -8,6 +8,7 @@ type Project = {
     title: string;
     description: string;
     status: string;
+    todos?: Todo[];
 };
 
 type Todo = {
@@ -15,36 +16,36 @@ type Todo = {
     title: string;
     description: string;
     status: string;
+    project_id: number;
 }
 
 export default function Page() {
 
     const [projects, setProjects] = useState<Project[]>([]);
+    const [todos, setTodos] = useState([]);
 
     useEffect(() => {
-        const fetchProjects = async () => {
+        const fetchProjectsAndTodos = async () => {
             try {
-                const response = await fetch('http://localhost:4000/projects');
-                const data = await response.json();
-                setProjects(data);
+                const projectResponse = await fetch('http://localhost:4000/projects');
+                const projectsData = await projectResponse.json();
+
+                const todosResponse = await fetch('http://localhost:4000/todos');
+                const todosData = await todosResponse.json();
+
+                const projectsWithTodos = projectsData.map((project: Project) => {
+                    const filteredTodos = todosData.filter((todo: Todo) => todo.project_id === project.id);
+                    return { ...project, todos: filteredTodos };
+                });
+
+                setProjects(projectsWithTodos);
             } catch (error) {
-                console.error('Error fetching projects:', error);
+                console.error('Error fetching projects and todos:', error);
             }
         };
 
-        fetchProjects();
+        fetchProjectsAndTodos();
     }, []);
-
-    const fetchTodosForProject = async (projectId: number): Promise<Todo[]> => {
-        try {
-            const response = await fetch(`http://localhost:4000/projects/${projectId}/todos`);
-            const todosData = await response.json();
-            return todosData;
-        } catch (error) {
-            console.error(`Error fetching todos for project ${projectId}:`, error);
-            return [];
-        }
-    };
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -57,6 +58,19 @@ export default function Page() {
                             <p className="text-xs font-sans">Status: {project.status}</p>
                         </div>
                         <p className="text-slate-400 text-md font-light">{project.description}</p>
+                        {project.todos && project.todos.length > 0 && (
+                            <div className="mt-4">
+                                <h4 className="text-md font-semibold">Todos:</h4>
+                                <ul className="list-disc list-inside">
+                                    {project.todos.map((todo: Todo) => (
+                                        <li key={todo.id}>
+                                            <p className="text-slate-400">{todo.title} - {todo.status}</p>
+                                            <p className="text-slate-300 text-sm">{todo.description}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </li>
                 ))}
             </ul>
