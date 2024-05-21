@@ -1,5 +1,6 @@
 class User < ApplicationRecord
 
+    has_secure_password
     attr_reader :password
     
     validates :username, :session_token, presence: true
