@@ -14,13 +14,13 @@ export default function NewUserForm() {
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify({user})
     }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         await fetch('http://localhost:4000/users', createUser)
-        router.push('/dashboard/user/projects')
+        router.push('/dashboard')
     }
 
     return (
@@ -52,12 +52,12 @@ export default function NewUserForm() {
                     </label>
                 </div>
                 <button type="submit" className="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300">
-                    Submit
+                    Create Account
                 </button>
                 <br />
                 Already have an account?
                 <button className="bg-red-500 text-white font-semibold py-2 px-4 ml-2 rounded-lg hover:bg-red-600 transition duration-300">
-                    <Link href="">Log in here</Link>
+                    <Link href="/dashboard/users/login">Log in here</Link>
                 </button>
             </form>
         </div>

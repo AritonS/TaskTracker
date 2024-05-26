@@ -67,7 +67,7 @@ export default function LoginForm() {
                 <br />
                 Not signed up yet?
                 <button className="bg-red-500 text-white font-semibold py-2 px-4 ml-2 rounded-lg hover:bg-red-600 transition duration-300">
-                    <Link href="/signup">
+                    <Link href="/dashboard/users/new">
                         Create an account here
                     </Link>
                 </button>
