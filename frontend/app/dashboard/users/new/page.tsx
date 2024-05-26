@@ -32,7 +32,8 @@ export default function NewUserForm() {
                         <br />
                         <input
                             type="text"
-                            id="title"
+                            id="username"
+                            value={user.username}
                             onChange={(e) => setUser({ ...user, username: e.target.value })}
                             className="border border-gray-300 rounded-lg px-1 focus:outline-none focus:border-red-500 text-black"
                         />
@@ -42,8 +43,9 @@ export default function NewUserForm() {
                     <label className="text-lg font-semibold mb-1">Password:
                         <br />
                         <input
-                            type="text"
-                            id="description"
+                            type="password"
+                            id="password"
+                            value={user.password}
                             onChange={(e) => setUser({ ...user, password: e.target.value })}
                             className="border border-gray-300 rounded-lg px-1 focus:outline-none focus:border-red-500 text-black"
                         />
@@ -53,8 +55,9 @@ export default function NewUserForm() {
                     Submit
                 </button>
                 <br />
-                <button className="bg-red-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-red-600 transition duration-300">
-                    <Link href=""></Link>
+                Already have an account?
+                <button className="bg-red-500 text-white font-semibold py-2 px-4 ml-2 rounded-lg hover:bg-red-600 transition duration-300">
+                    <Link href="">Log in here</Link>
                 </button>
             </form>
         </div>
