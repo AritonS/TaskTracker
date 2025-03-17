@@ -11,18 +11,62 @@
   </head>
 
   <body>
-  <h1>To-Dos</h1>
-  <% @todos.each do |todo| %>
-    <div style='display:flex;flex-direction:column;'>
-        <p>Title: <%=  todo.title  %> </p> 
-        <p>Description: <%=  todo.description  %></p>
-        <p>Status: <%=  todo.status  %></p>
-        <br>
+    <div class="container">
+      <h1>To-Dos</h1>
+      
+      <div class="todos-list">
+        <% @todos.each do |todo| %>
+          <div class="todo-item">
+            <div class="todo-details">
+              <h3><%= todo.title %></h3>
+              <p><strong>Description:</strong> <%= todo.description %></p>
+              <p><strong>Status:</strong> <%= todo.status %></p>
+              <p><strong>Project:</strong> <%= todo.project ? todo.project.title : "No Project" %></p>
+            </div>
+            <div class="todo-actions">
+              <%= link_to 'Edit', edit_todo_path(todo), class: 'edit-link' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="actions">
+        <%= link_to 'Create New Todo Item', new_todo_path, class: 'new-todo-link' %>
+      </div>
     </div>
-  <% end %>
-  <p>
-    <%= link_to 'Create New Todo Item', new_todo_path %>
-  </p>
-    <%= yield %>
+
+    <style>
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .todo-item {
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+      }
+      .todo-details h3 {
+        margin-top: 0;
+      }
+      .todo-actions {
+        margin-top: 10px;
+      }
+      .edit-link, .new-todo-link {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 3px;
+      }
+      .edit-link:hover, .new-todo-link:hover {
+        background-color: #0056b3;
+      }
+      .actions {
+        margin-top: 20px;
+      }
+    </style>
   </body>
 </html>

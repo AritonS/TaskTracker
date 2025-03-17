@@ -1,0 +1,29 @@
+<h1>Edit To-Do Item</h1>
+
+<%= form_with model: @todo, local: true do |f| %>
+  <div>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <%= f.label :status %>
+    <%= f.text_field :status %>
+  </div>
+
+  <div>
+    <%= f.label :project_id, "Project" %>
+    <%= f.collection_select :project_id, Project.all, :id, :title, { prompt: "Select a project (optional)" } %>
+  </div>
+
+  <div>
+    <%= f.submit "Update Todo Item" %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Todos', todos_path %> 

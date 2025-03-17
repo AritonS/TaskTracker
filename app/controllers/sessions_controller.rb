@@ -14,14 +14,25 @@ class SessionsController < ApplicationController
     #     end
     # end
 
-      def create
-        user = User.find_by(username: params[:username])
-
-        if user&.authenticate(params[:session][:password])
-            session[:user_id] = user.id
-            render json: { status: 'logged_in', user: user }
+    def show
+        if current_user
+            render json: current_user
         else
-            render json: { status: 401, error: 'Invalid username or password' }
+            render json: { error: "No active session" }, status: :unauthorized
+        end
+    end
+
+    def create
+        @user = User.find_by_credentials(
+            params[:username],
+            params[:password]
+        )
+
+        if @user
+            login!(@user)
+            render json: @user
+        else
+            render json: { error: "Invalid username or password" }, status: :unauthorized
         end
     end
 

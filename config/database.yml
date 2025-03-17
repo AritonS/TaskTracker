@@ -82,3 +82,11 @@ production:
   database: task_tracker_production
   username: task_tracker
   password: <%= ENV["TASK_TRACKER_DATABASE_PASSWORD"] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres.ynwojhddduwpsigjbyoh
+  password: <%= ENV['SUPABASE_DB_PASSWORD'] %>
+  host: aws-0-us-east-1.pooler.supabase.com
+  port: 6543
+  database: postgres

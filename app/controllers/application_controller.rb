@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
+    protect_from_forgery with: :exception
     skip_before_action :verify_authenticity_token
+    before_action :set_csrf_cookie
 
     helper_method :current_user
 
@@ -11,6 +13,7 @@ class ApplicationController < ActionController::Base
     def logout!
         current_user.try(:reset_session_token!)
         session[:session_token] = nil
+        @current_user = nil
     end
 
     def current_user
@@ -19,7 +22,12 @@ class ApplicationController < ActionController::Base
     end
 
     def require_current_user!
-        redirect_to new_user_url if current_user.nil?
+        render json: { error: 'Unauthorized' }, status: :unauthorized unless current_user
     end
 
+    private
+
+    def set_csrf_cookie
+        cookies['CSRF-TOKEN'] = form_authenticity_token
+    end
 end

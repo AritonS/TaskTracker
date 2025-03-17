@@ -12,29 +12,124 @@
   </head>
 
   <body>
-  <h1>Project <%= @project.id %></h1>
-    <div style='display:flex;flex-direction:column;'>
-        <h4>Title: <%=  @project.title  %> </h4> 
-        <p>Description: <%=  @project.description  %></p>
-        <p>Status: <%=  @project.status  %></p>
-        <br>
+  <div class="container">
+    <h1><%= @project.title %></h1>
+    
+    <div class="project-details">
+      <p><strong>Description:</strong> <%= @project.description %></p>
+      <p><strong>Status:</strong> <%= @project.status %></p>
     </div>
 
-
-    <h2>Todos:</h2>
-    <div>
-    <% @todos.each do |todo| %>
-        <h4>Title: <%= todo.title %></h4>
-        <p>Description: <%= todo.description %></p>
-        <p>Status: <%= todo.status %></p>
-    <% end %>
+    <div class="todos-section">
+      <h2>Project Todos</h2>
+      <% if @todos.any? %>
+        <div class="todos-list">
+          <% @todos.each do |todo| %>
+            <div class="todo-item">
+              <div class="todo-details">
+                <h3><%= todo.title %></h3>
+                <p><strong>Description:</strong> <%= todo.description %></p>
+                <p><strong>Status:</strong> <%= todo.status %></p>
+              </div>
+              <div class="todo-actions">
+                <%= button_to 'Remove from Project', 
+                            remove_todo_project_path(@project, todo_id: todo.id),
+                            method: :patch,
+                            class: 'remove-button' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>No todos assigned to this project yet.</p>
+      <% end %>
     </div>
 
-  <p>
-    <%= link_to 'Create New Project', new_project_path %>
-  </p>
+    <div class="available-todos-section">
+      <h2>Available Todos</h2>
+      <% if @available_todos.any? %>
+        <div class="todos-list">
+          <% @available_todos.each do |todo| %>
+            <div class="todo-item">
+              <div class="todo-details">
+                <h3><%= todo.title %></h3>
+                <p><strong>Description:</strong> <%= todo.description %></p>
+                <p><strong>Status:</strong> <%= todo.status %></p>
+              </div>
+              <div class="todo-actions">
+                <%= button_to 'Add to Project', 
+                            add_todo_project_path(@project, todo_id: todo.id),
+                            method: :patch,
+                            class: 'add-button' %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p>No available todos to add.</p>
+      <% end %>
+    </div>
 
-  <div id="projects-container"></div>
+    <div class="actions">
+      <%= link_to 'Edit Project', edit_project_path(@project), class: 'edit-link' %>
+      <%= link_to 'Back to Projects', projects_path, class: 'back-link' %>
+    </div>
+  </div>
+
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .project-details {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #f8f9fa;
+      border-radius: 5px;
+    }
+    .todos-section, .available-todos-section {
+      margin: 30px 0;
+    }
+    .todo-item {
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+    }
+    .todo-details h3 {
+      margin-top: 0;
+    }
+    .todo-actions {
+      margin-top: 10px;
+    }
+    .add-button, .remove-button {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .add-button {
+      background-color: #28a745;
+      color: white;
+    }
+    .remove-button {
+      background-color: #dc3545;
+      color: white;
+    }
+    .edit-link, .back-link {
+      display: inline-block;
+      padding: 5px 10px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 3px;
+      margin-right: 10px;
+    }
+    .actions {
+      margin-top: 20px;
+    }
+  </style>
 
     <%= yield %>
   </body>

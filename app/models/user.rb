@@ -3,7 +3,9 @@ class User < ApplicationRecord
     has_secure_password
     attr_reader :password
     
-    validates :username, :session_token, presence: true
+    validates :username, :email, :session_token, presence: true
+    validates :username, :email, uniqueness: true
+    validates :email, format: { with: URI::MailTo::EMAIL_REGEXP }
     validates :password_digest, presence: { message: "Password can't be blank" }
     validates :password, length: { minimum: 6, allow_nil: true }
 

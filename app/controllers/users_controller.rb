@@ -7,9 +7,9 @@ class UsersController < ApplicationController
 
         if @user.save
             login!(@user)
-            redirect_to user_url(@user)
+            render json: @user, status: :created
         else
-            render json: @user.errors.full_messages
+            render json: { error: @user.errors.full_messages.join(", ") }, status: :unprocessable_entity
         end
     end
 
@@ -24,12 +24,13 @@ class UsersController < ApplicationController
 
     def show
         @user = User.find(params[:id])
+        render json: @user
     end
 
     private
 
     def user_params
-        params.require(:user).permit(:username, :password)
+        params.require(:user).permit(:username, :email, :password)
     end
 
 end

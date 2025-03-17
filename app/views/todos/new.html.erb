@@ -5,6 +5,7 @@
   <%= f.text_field :title, name: "todo[title]", placeholder: "Title" %>
   <%= f.text_area :description, name: "todo[description]", placeholder: "Description" %>
   <%= f.text_field :status, name: "todo[status]", placeholder: "Status" %>
+  <%= f.collection_select :project_id, Project.all, :id, :title, { prompt: "Select a project (optional)" } %>
   <%= f.submit "Add Todo Item" %>
 
 <% end %>
